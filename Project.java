@@ -1,46 +1,45 @@
 import java.awt.Container;
 import java.util.*;
-
 import javax.swing.*;
 
-
 public class Project {
-	public Project() {
-		String username = Keyboard.readString();	
-		String password = Keyboard.readString();
-			if(password.equals("pwd") && username.equals("user")) {//checking against an array of username and passwords
-			System.out.println("Correct");
-		} else {
-		System.out.println("Incorrect");
-		}
-		input(Keyboard.readString());
-	}
-	//need another array with full names and age to compare if we get a match
-	//login
-private List<String> db = Arrays.asList("jas78", "maw77", "jap55", "jae36");
-	public void input(String in) {
-		for (int i = 0; i < db.size(); i++) {//loop through array
-			if (in.equals(db.get(i))) {//string checker
-				System.out.println("Hi " + in + " your aber email is: " + in
-						+ "@aber.ac.uk");// string constructor
-			}
-		}
-	}
+    private String[] passwords = new String[]{"apples","bananas","pinapples","pears"};
+    private List<String> db = Arrays.asList("jas78", "maw77", "jap55", "jae36");
 
-	private static void BuildWindow() {
-		JFrame frame = new JFrame("Group A");
+    
+    public Project() {
+        System.out.print("Username: ");
+        String username = Keyboard.readString();
+        System.out.print("Password: ");
+        String password = Keyboard.readString();// reads the inputted password and attempts to match it
+        //to any of the existing passwords
 
-		frame.setBounds(20, 20, 100, 100);
-		frame.setLayout(null);
-		Container content = frame.getContentPane();
-		frame.setSize(100, 100);
-		frame.pack();
-		JTextField txt_User = new JTextField();
-		txt_User.setBounds(10, 10, 100, 17);
+        input(username, password);
+    }
+    //need another array with full names and age to compare if we get a match
+    //login
+    public void input(String in, String pwd) {
+        if(checkLogin(in, pwd)) {// checks the inputted password and user name
+            System.out.println("Hi " + in + " your aber email is: " + in
+                + "@aber.ac.uk");
+        } else {
+            System.out.print("Please re-enter your password");// ch
+        }
+    }
 
-		frame.add(txt_User);
-		frame.setVisible(true);
+    private boolean checkLogin(String in, String pwd) {
+        for (int i = 0; i < db.size(); i++) {// provides a loop to go through both arrays, which should both be
+            //the same length as they match eachother.
+            if (in.equals(db.get(i)) && pwd.equals(passwords[i])) {// checks wheather the username at position i,
+                //matches the users input, and does the same for the password, so each user has a unique password.
+                // string constructor
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
 
-	}
+    }
 
 }
